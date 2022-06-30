@@ -2,15 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6BD63434"
+    android:background="#12DC45"
+    android:orientation="vertical"
     >
 
-    <TextView
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30sp"
-        android:text="Address List Here"
-        android:gravity="center|bottom"
-        />
+        android:layout_height="match_parent">
+
+    </ListView>
 
 </FrameLayout>
