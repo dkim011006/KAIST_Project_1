@@ -43,6 +43,12 @@ public class Fragment_Gallery extends Fragment {
 //            }
 //        });
         recyclerView.setLayoutManager((gridLayoutManager));
+        int spanCount = 3; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = true;
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+
+
         arrayList = new ArrayList<>();
 
         galleryAdapter = new GalleryAdapter(arrayList);
