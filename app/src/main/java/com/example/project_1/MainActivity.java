@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private View drawerView;
 
     Button btn1, btn2, btn3;
-//    Button btn_home;
 
 
     @Override
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //  Tab 화면을 구성하는 DrawerLayout 구현 부분 시작
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawer);
 
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment_Address fragmentAddress = new Fragment_Address();
                 transaction.replace(R.id.frame, fragmentAddress);
                 transaction.commit();
+                drawerLayout.closeDrawers();
             }
         });
 
@@ -82,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 Fragment_Gallery fragmentGallery = new Fragment_Gallery();
                 transaction.replace(R.id.frame, fragmentGallery);
                 transaction.commit();
+                drawerLayout.closeDrawers();
+
             }
         });
 
@@ -94,12 +103,17 @@ public class MainActivity extends AppCompatActivity {
                 Fragment_Free fragmentFree = new Fragment_Free();
                 transaction.replace(R.id.frame, fragmentFree);
                 transaction.commit();
+                drawerLayout.closeDrawers();
             }
         });
+        //  Tab 화면을 구성하는 DrawerLayout 구현 부분 종료
+
+
 
 
     }
 
+    //DrawerListener 구현파트
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
