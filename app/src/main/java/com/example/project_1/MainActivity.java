@@ -121,4 +121,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    public void change_to_Detail(int i){
+        CallBookClick callBookClick = new CallBookClick();
+        callBookClick.jsonNum(i);
+        getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
+    }
 }
