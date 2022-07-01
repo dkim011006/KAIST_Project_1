@@ -34,14 +34,14 @@ public class Fragment_Gallery extends Fragment {
 
         //  Gallery의 RecyclerView 구현 부분 시작
         recyclerView = (RecyclerView) v.findViewById(R.id.rv);
-        gridLayoutManager = new GridLayoutManager(v.getContext(), 4);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if(position == 0) return 2;
-                return 1;
-            }
-        });
+        gridLayoutManager = new GridLayoutManager(v.getContext(), 3);
+//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                if(position == 0) return 2;
+//                return 1;
+//            }
+//        });
         recyclerView.setLayoutManager((gridLayoutManager));
         arrayList = new ArrayList<>();
 

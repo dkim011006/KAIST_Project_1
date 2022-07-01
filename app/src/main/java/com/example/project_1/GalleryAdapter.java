@@ -23,7 +23,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
 
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_item_list, parent, false);
 
         CustomViewHolder holder = new CustomViewHolder((view));
 
@@ -36,6 +36,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
         holder.iv_photo.setImageResource(arrayList.get(position).getIv_photo());
 
         holder.itemView.setTag(position);
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                int PICK_IMAGE = 1111;
+//                startActivityForResult(intent, PICK_IMAGE);
+//            }
+//        });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
