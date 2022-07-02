@@ -22,12 +22,20 @@
             android:layout_weight="1"
             tools:listitem="@layout/gallery_item_list">
         </androidx.recyclerview.widget.RecyclerView>
-        <Button
-            android:id="@+id/btn_gallery_addphoto"
-            android:layout_weight="8"
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Add" />
+            android:layout_weight="8"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_gallery_getImages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GET IMAGE" />
+        </LinearLayout>
 
 
     </LinearLayout>

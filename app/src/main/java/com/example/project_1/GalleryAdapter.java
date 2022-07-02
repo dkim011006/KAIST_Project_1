@@ -1,5 +1,6 @@
 package com.example.project_1;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomVi
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 
-        holder.iv_photo.setImageResource(arrayList.get(position).getIv_photo());
+        holder.iv_photo.setImageURI(arrayList.get(position).getIv_photo());
 
         holder.itemView.setTag(position);
 
