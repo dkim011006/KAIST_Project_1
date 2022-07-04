@@ -29,10 +29,15 @@ public class CallBookClick extends Fragment {
 
     int jsonChoice = 0;
 
-    TextView titleText;
+    TextView titleText = null;
     TextView explainText;
     TextView numText;
     TextView ageText;
+
+    String name;
+    String num;
+    String age;
+    String explain;
 
     public CallBookClick() {
         // Required empty public constructor
@@ -51,28 +56,18 @@ public class CallBookClick extends Fragment {
         numText = (TextView) rootView.findViewById(R.id.num_text);
         ageText = (TextView) rootView.findViewById(R.id.age_text);
 
-        try {
-            inputStream = assetManager.open("callbook.json");
-            int sizeOfFile = inputStream.available();
-            byte[] bufferData = new byte[sizeOfFile];
-            inputStream.read(bufferData);
-            inputStream.close();
-            json = new String(bufferData,"UTF-8");
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("callbook");
-            JSONObject userData = jsonArray.getJSONObject(jsonChoice);
-            titleText.setText(userData.getString("name"));
-            explainText.setText(userData.getString("explain"));
-            numText.setText(userData.getString("number"));
-            ageText.setText((String)userData.get("age"));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
+        titleText.setText(name);
+        explainText.setText(explain);
+        numText.setText(num);
+        ageText.setText(age);
 
         return rootView;
     }
 
-    public void jsonNum(int i){
-        jsonChoice = i;
+    public void jsonNum(String name, String num, String explain, String age){
+        this.name = name;
+        this.num = num;
+        this.explain = explain;
+        this.age = age;
     }
 }
