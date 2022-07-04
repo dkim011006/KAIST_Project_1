@@ -1,6 +1,7 @@
 package com.example.project_1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class Fragment_Login extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        MainActivity mainActivity = (MainActivity) getActivity();
         //check if file exists
         System.out.println("GOES IN,,,,,,,");
         try {
@@ -86,7 +88,28 @@ public class Fragment_Login extends Fragment {
                         try {
                             System.out.println(inputid.getText().toString());
                             System.out.println(inputpw.getText().toString());
-                            jo.put(inputid.getText().toString(), inputpw.getText().toString());
+                            //Default Address Hard Coding
+                            JSONObject joUserDefaultAddress = new JSONObject();
+                            joUserDefaultAddress.put("name", "Bruno Fernandes");
+                            joUserDefaultAddress.put("age", "27");
+                            joUserDefaultAddress.put("number", "01048674395");
+                            joUserDefaultAddress.put("explain", "World's Best Player");
+
+                            JSONArray jaUserAddress = new JSONArray();
+                            jaUserAddress.put(joUserDefaultAddress);
+
+                            JSONArray jaUserGallery = new JSONArray();
+
+                            JSONObject joUserInfo = new JSONObject();
+
+                            joUserInfo.put("password", inputpw.getText().toString());
+                            joUserInfo.put("address", jaUserAddress);
+                            joUserInfo.put("gallery", jaUserGallery);
+
+                            jo.put(inputid.getText().toString(), joUserInfo);
+
+                            System.out.println(jo);
+
                             label.setText("Signed In!");
                             inputid.setText("");
                             inputpw.setText("");
@@ -108,6 +131,7 @@ public class Fragment_Login extends Fragment {
             public void onClick(View view) {
                 if(validateUserId(inputid.getText().toString())){
                     if(validateUserPw(inputid.getText().toString(), inputpw.getText().toString())){
+                        String id = inputid.getText().toString();
                         //user login...
 //                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
 //                        intent.putExtra("username", inputid.getText().toString());
@@ -116,10 +140,21 @@ public class Fragment_Login extends Fragment {
                         inputpw.setVisibility(View.GONE);
                         btnsignin.setVisibility(View.GONE);
                         btnlogin.setVisibility(View.GONE);
-                        label.setText("hello, " + inputid.getText().toString() + "!");
+                        label.setText("hello, " + id + "!");
                         btnsaveinfo.setVisibility(View.VISIBLE);
                         btnlogout.setVisibility(View.VISIBLE);
                         //MainActivity(Set USERNAME, ADDRESSES, GALLERY)
+                        try {
+                            JSONArray userAddressJsonList = jo.getJSONObject(id).getJSONArray("address");
+                            JSONArray userGalleryJsonList = jo.getJSONObject(id).getJSONArray("gallery");
+                            ArrayList<AddressData> userAddressArrayList = new ArrayList<>();
+                            ArrayList<GalleryData> userGalleryArrayList = new ArrayList<>();
+                            userAddressArrayList = convertJsonArrayToArrayList(userAddressArrayList, userAddressJsonList);
+                            userGalleryArrayList = convertJsonArrayToArrayList(userGalleryArrayList, userGalleryJsonList);
+                            mainActivity.updateUserInfo(id, userAddressArrayList, userGalleryArrayList);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }else{
                         label.setText("Wrong Password");
                         inputpw.setText("");
@@ -151,6 +186,7 @@ public class Fragment_Login extends Fragment {
                 btnsaveinfo.setVisibility(View.GONE);
                 btnlogout.setVisibility(View.GONE);
                 //MainActivity(Reset USERNAME, ADDRESSES, GALLERY)
+                mainActivity.updateUserInfo(null, null, null);
             }
         });
 
@@ -168,7 +204,7 @@ public class Fragment_Login extends Fragment {
 //            if ((jo.getJSONObject(inputid)).getString("password") == inputpw) return true;
             System.out.println("ID is :" + jo.getString(inputid));
             System.out.println("PW is : " + inputpw);
-            if (jo.getString(inputid).equals(inputpw)) return true;
+            if ((jo.getJSONObject(inputid).getString("password")).equals(inputpw)) return true;
             return false;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -177,6 +213,7 @@ public class Fragment_Login extends Fragment {
     }
 
     private JSONObject createNewJsonObject(){
+        JSONObject jo = new JSONObject();
         return new JSONObject();
     }
 

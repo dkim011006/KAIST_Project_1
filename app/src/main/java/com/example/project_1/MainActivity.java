@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -19,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private View drawerView;
 
     Button btn1, btn2, btn3;
+
+    String username = "";
+    ArrayList<AddressData> addressList = null;
+    ArrayList<GalleryData> galleryList = null;
 
 
     @Override
@@ -137,5 +144,28 @@ public class MainActivity extends AppCompatActivity {
         CallBookClick callBookClick = new CallBookClick();
         callBookClick.jsonNum(i);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
+    }
+
+    public void updateUserInfo(String username, ArrayList addressList, ArrayList galleryList){
+        this.username = username;
+        this.addressList = addressList;
+        this.galleryList = galleryList;
+        System.out.println("The User Info are as below \n:\nusername = " + this.username);
+        System.out.println("addressList = ");
+        System.out.println(addressList);
+        System.out.println("galleryList = ");
+        System.out.println(galleryList);
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public ArrayList getUserAddressList(){
+        return this.addressList;
+    }
+
+    public ArrayList getUserGalleryList(){
+        return this.galleryList;
     }
 }
