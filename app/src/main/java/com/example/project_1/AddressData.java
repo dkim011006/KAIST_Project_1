@@ -1,6 +1,6 @@
 package com.example.project_1;
 
-public class ListViewItem {
+public class AddressData {
     private int iconDrawable;
     private String contentStr;
     private String titleStr;

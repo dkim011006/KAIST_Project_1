@@ -13,16 +13,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListViewAdapter extends BaseAdapter {
+public class AddressAdapter extends BaseAdapter {
 
     private ImageView iconImageView;
     private TextView titleTextView;
     private TextView contentTextView;
     private Button buttonView;
 
-    public ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
+    public ArrayList<AddressData> listViewItemList = new ArrayList<AddressData>();
 
-    public ListViewAdapter(){
+    public AddressAdapter(){
 
     }
 
@@ -56,7 +56,7 @@ public class ListViewAdapter extends BaseAdapter {
         contentTextView = (TextView) convertView.findViewById(R.id.content);
         buttonView = (Button) convertView.findViewById(R.id.directCall);
 
-        ListViewItem listViewItem = listViewItemList.get(position);
+        AddressData listViewItem = listViewItemList.get(position);
 
         titleTextView.setText(listViewItem.getTitle());
         iconImageView.setImageResource(listViewItem.getIcon());
@@ -79,7 +79,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void addItem(String title, int icon, String content){
-        ListViewItem item = new ListViewItem();
+        AddressData item = new AddressData();
 
         item.setTitle(title);
         item.setIcon(icon);

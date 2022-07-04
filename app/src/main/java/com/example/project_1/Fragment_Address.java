@@ -1,25 +1,17 @@
 package com.example.project_1;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,13 +19,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Fragment_Address extends Fragment {
 
     private ListView listview;
-    private ListViewAdapter adapter;
+    private AddressAdapter adapter;
     MainActivity mainActivity;
 
 
@@ -56,7 +46,7 @@ public class Fragment_Address extends Fragment {
         InputStream inputStream = null;
 
         View rootView = inflater.inflate(R.layout.fragment_address, container, false);
-        adapter = new ListViewAdapter();
+        adapter = new AddressAdapter();
 
         listview = (ListView) rootView.findViewById(R.id.listview);
         listview.setAdapter(adapter);
