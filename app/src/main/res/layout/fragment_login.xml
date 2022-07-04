@@ -27,38 +27,6 @@
         android:hint="PassWord"
         android:textSize="23sp" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/write"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@+id/input"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_marginTop="20sp"-->
-    <!--        android:text="Write To File"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        android:textSize="23sp" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/read"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@+id/write"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_marginTop="40sp"-->
-    <!--        android:text="Read From File"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        android:textSize="23sp" />-->
-
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:id="@+id/text"-->
-    <!--        android:layout_below="@+id/inputPw"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_marginTop="20sp"-->
-    <!--        android:textSize="23sp"-->
-    <!--        android:hint="Text from file comes here"/>-->
-
     <Button
         android:id="@+id/btnsignin"
         android:layout_width="wrap_content"
@@ -84,11 +52,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/errmsg"
+        android:id="@+id/label"
         android:layout_below="@+id/btnlogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20sp"
         android:textSize="23sp"
         android:hint=""/>
+
+    <Button
+        android:id="@+id/saveinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40sp"
+        android:text="Save Info"
+        android:textAllCaps="false"
+        android:textSize="23sp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40sp"
+        android:text="Log Out"
+        android:textAllCaps="false"
+        android:textSize="23sp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
