@@ -8,13 +8,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentResolver;
+import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -136,4 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    public void change_to_Detail(int i){
+        CallBookClick callBookClick = new CallBookClick();
+        callBookClick.jsonNum(i);
+        getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
+    }
 }
