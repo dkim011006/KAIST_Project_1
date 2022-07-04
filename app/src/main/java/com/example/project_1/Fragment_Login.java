@@ -77,17 +77,23 @@ public class Fragment_Login extends Fragment {
             public void onClick(View view) {
                 //Sign In
                 if(!validateUserId(inputid.getText().toString())){
-                    //user register...
-                    try {
-                        System.out.println(inputid.getText().toString());
-                        System.out.println(inputpw.getText().toString());
-                        jo.put(inputid.getText().toString(), inputpw.getText().toString());
-                        label.setText("Signed In!");
-                        inputid.setText("");
-                        inputpw.setText("");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        label.setText(e.getMessage());
+                    if(inputid.getText().toString().equals("")){
+                        label.setText("Enter Username");
+                    }else if(inputpw.getText().toString().equals("")) {
+                        label.setText("Enter Password");
+                    }else{
+                        //user register...
+                        try {
+                            System.out.println(inputid.getText().toString());
+                            System.out.println(inputpw.getText().toString());
+                            jo.put(inputid.getText().toString(), inputpw.getText().toString());
+                            label.setText("Signed In!");
+                            inputid.setText("");
+                            inputpw.setText("");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            label.setText(e.getMessage());
+                        }
                     }
 
                 }else{
