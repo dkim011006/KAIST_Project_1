@@ -1,9 +1,13 @@
 package com.example.project_1;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +27,17 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fragment_Address extends Fragment {
 
     private ListView listview;
     private ListViewAdapter adapter;
     MainActivity mainActivity;
+
+
+
     public Fragment_Address(){
 
     }
@@ -87,4 +96,5 @@ public class Fragment_Address extends Fragment {
         super.onDetach();
         mainActivity = null;
     }
+
 }
