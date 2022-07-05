@@ -25,6 +25,7 @@
         android:layout_marginTop="20sp"
         android:ems="10"
         android:hint="PassWord"
+        android:inputType="textPassword"
         android:textSize="23sp" />
 
     <LinearLayout
@@ -90,6 +91,8 @@
         android:id="@+id/label"
         android:layout_below="@+id/buttons"
         android:layout_centerHorizontal="true"
+        android:singleLine="false"
+        android:autoSizeTextType="uniform"
         android:layout_marginTop="20sp"
         android:textSize="23sp"
         android:hint=""/>

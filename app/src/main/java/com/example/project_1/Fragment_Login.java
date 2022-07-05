@@ -194,11 +194,15 @@ public class Fragment_Login extends Fragment {
                             e.printStackTrace();
                         }
                     }else{
+                        label.setTextColor(Color.RED);
+                        label.setTextSize(2, 23);
                         label.setText("Wrong Password");
                         inputpw.setText("");
                     }
 
                 }else{
+                    label.setTextColor(Color.RED);
+                    label.setTextSize(2, 23);
                     label.setText("User Doesn't Exist");
                     inputid.setText("");
                     inputpw.setText("");
