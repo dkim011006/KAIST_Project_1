@@ -109,9 +109,9 @@ public class Fragment_Login extends Fragment {
                             //Default Address Hard Coding
                             JSONObject joUserDefaultAddress = new JSONObject();
                             joUserDefaultAddress.put("name", "Bruno Fernandes");
-                            //joUserDefaultAddress.put("age", "27");
+                            joUserDefaultAddress.put("age", "27");
                             joUserDefaultAddress.put("number", "01048674395");
-                            //joUserDefaultAddress.put("explain", "World's Best Player");
+                            joUserDefaultAddress.put("explain", "World's Best Player");
 
                             JSONArray jaUserAddress = new JSONArray();
                             jaUserAddress.put(joUserDefaultAddress);
@@ -307,7 +307,7 @@ public class Fragment_Login extends Fragment {
                 //Adding each element of JSON array into ArrayList
                 try {
                     JSONObject userData = jsonArray.getJSONObject(i);
-                    AddressData addressData = new AddressData(R.drawable.avocado, userData.getString("number"), userData.getString("name"));
+                    AddressData addressData = new AddressData(R.drawable.avocado, userData.getString("number"), userData.getString("name"), userData.getString("explain"), userData.getString("age"));
                     arrayList.add(addressData);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -364,9 +364,13 @@ public class Fragment_Login extends Fragment {
                     AddressData addressData = arrayList.get(i);
                     String name = addressData.getTitle();
                     String number = addressData.getContent();
+                    String explain = addressData.getExplain();
+                    String age = addressData.getAge();
                     JSONObject jo_forsaveAddress = new JSONObject();
                     jo_forsaveAddress.put("name", name);
                     jo_forsaveAddress.put("number", number);
+                    jo_forsaveAddress.put("explain", explain);
+                    jo_forsaveAddress.put("age", age);
                     jsonArray.put(jo_forsaveAddress);
 
 

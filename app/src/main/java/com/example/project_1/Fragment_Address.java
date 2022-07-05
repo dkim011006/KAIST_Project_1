@@ -39,6 +39,7 @@ public class Fragment_Address extends Fragment {
     EditText age;
     EditText explain;
     Button addButton;
+    Button clearButton;
 
     FrameLayout frameLayout;
 
@@ -63,26 +64,29 @@ public class Fragment_Address extends Fragment {
         String json = "";
         AssetManager assetManager = getResources().getAssets();
         InputStream inputStream = null;
+        MainActivity mainActivity = (MainActivity) getActivity();
 
-        arrayList = new ArrayList<AddressData>();
-
+//        arrayList = new ArrayList<AddressData>();
+        arrayList = mainActivity.getUserAddressList();
         View rootView = inflater.inflate(R.layout.fragment_address, container, false);
-        adapter = new AddressAdapter();
+        adapter = new AddressAdapter(arrayList);
 
         name = (EditText) rootView.findViewById(R.id.addCallbookName);
         num = (EditText) rootView.findViewById(R.id.addCallbookNum);
         age = (EditText) rootView.findViewById(R.id.addCallbookAge);
         explain = (EditText) rootView.findViewById(R.id.addCallbookExplain);
         addButton = (Button) rootView.findViewById(R.id.addCallbookButton);
+        clearButton = (Button) rootView.findViewById(R.id.clearCallbookButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addItem(name.getText().toString(), R.drawable.avocado, num.getText().toString());
+                //adapter.addItem(name.getText().toString(), R.drawable.avocado, num.getText().toString());
                 AddressData listViewItem = new AddressData();
                 listViewItem.setTitle(name.getText().toString());
                 listViewItem.setAge(age.getText().toString());
                 listViewItem.setExplain(explain.getText().toString());
                 listViewItem.setContent(num.getText().toString());
+                listViewItem.setIcon(R.drawable.avocado);
                 arrayList.add(listViewItem);
                 adapter.notifyDataSetChanged();
             }
@@ -100,6 +104,14 @@ public class Fragment_Address extends Fragment {
                     inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 return false;
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrayList.clear();
+                adapter.notifyDataSetChanged();
             }
         });
 

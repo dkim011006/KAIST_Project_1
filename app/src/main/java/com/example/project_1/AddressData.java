@@ -7,10 +7,21 @@ public class AddressData {
     private String explain;
     private String age;
 
+    public AddressData() {
+    }
+
     public AddressData(int iconDrawable, String contentStr, String titleStr) {
         this.iconDrawable = iconDrawable;
         this.contentStr = contentStr;
         this.titleStr = titleStr;
+    }
+
+    public AddressData(int iconDrawable, String contentStr, String titleStr, String explain, String age) {
+        this.iconDrawable = iconDrawable;
+        this.contentStr = contentStr;
+        this.titleStr = titleStr;
+        this.explain = explain;
+        this.age = age;
     }
 
     public void setTitle(String title){

@@ -102,6 +102,13 @@
                 android:layout_height="wrap_content"
                 android:text="ADD"
                 android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/clearCallbookButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear All"
+                android:textStyle="bold"/>
         </LinearLayout>
 
     </LinearLayout>

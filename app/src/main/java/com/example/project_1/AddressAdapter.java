@@ -20,10 +20,10 @@ public class AddressAdapter extends BaseAdapter {
     private TextView contentTextView;
     private Button buttonView;
 
-    public ArrayList<AddressData> listViewItemList = new ArrayList<AddressData>();
+    public ArrayList<AddressData> listViewItemList;
 
-    public AddressAdapter(){
-
+    public AddressAdapter(ArrayList<AddressData> listViewItemList){
+        this.listViewItemList = listViewItemList;
     }
 
     @Override
