@@ -30,8 +30,8 @@ public class Fragment_Gallery extends Fragment {
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
 
-//    Button btn_gallery_getImages;
-//    Button btn_gallery_clearAll;
+    Button btn_gallery_getImages;
+    Button btn_gallery_clearAll;
 
 
     public Fragment_Gallery(){
@@ -83,13 +83,14 @@ public class Fragment_Gallery extends Fragment {
         });
         System.out.println("click listener setted");
 
-//        btn_gallery_clearAll = v.findViewById(R.id.btn_gallery_clearAll);
-//        btn_gallery_clearAll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                arrayList.clear();
-//            }
-//        });
+        btn_gallery_clearAll = v.findViewById(R.id.btn_gallery_clearAll);
+        btn_gallery_clearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrayList.clear();
+                galleryAdapter.notifyDataSetChanged();
+            }
+        });
 
         //  Gallery의 RecyclerView 구현 부분 종료
 
