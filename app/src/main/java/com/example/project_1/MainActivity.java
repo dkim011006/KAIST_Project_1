@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -93,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!isLogin){
+                    Toast.makeText(MainActivity.this, "Login First", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment_Address fragmentAddress = new Fragment_Address();
                 transaction.replace(R.id.frame, fragmentAddress);
@@ -106,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!isLogin){
+                    Toast.makeText(MainActivity.this, "Login First", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment_Gallery fragmentGallery = new Fragment_Gallery();
                 transaction.replace(R.id.frame, fragmentGallery);

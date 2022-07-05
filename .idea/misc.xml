@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2195" />
+        <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/drawable/bg_custom_button.xml" value="0.2535" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2195" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/activity_drawer.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/address_item_list.xml" value="0.33" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment1.xml" value="0.18645833333333334" />
-        <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment_address.xml" value="0.1875" />
+        <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment_address.xml" value="0.33" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment_free.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment_gallery.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ZhorassicPark/StudioProjects/KAIST_Project_1/app/src/main/res/layout/fragment_login.xml" value="0.2115036231884058" />

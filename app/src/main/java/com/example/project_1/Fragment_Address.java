@@ -86,7 +86,7 @@ public class Fragment_Address extends Fragment {
                 listViewItem.setAge(age.getText().toString());
                 listViewItem.setExplain(explain.getText().toString());
                 listViewItem.setContent(num.getText().toString());
-                listViewItem.setIcon(R.drawable.avocado);
+                listViewItem.setIcon(R.drawable.ic_baseline_person_24);
                 arrayList.add(listViewItem);
                 adapter.notifyDataSetChanged();
             }

@@ -307,7 +307,7 @@ public class Fragment_Login extends Fragment {
                 //Adding each element of JSON array into ArrayList
                 try {
                     JSONObject userData = jsonArray.getJSONObject(i);
-                    AddressData addressData = new AddressData(R.drawable.avocado, userData.getString("number"), userData.getString("name"), userData.getString("explain"), userData.getString("age"));
+                    AddressData addressData = new AddressData(R.drawable.ic_baseline_person_24, userData.getString("number"), userData.getString("name"), userData.getString("explain"), userData.getString("age"));
                     arrayList.add(addressData);
                 } catch (JSONException e) {
                     e.printStackTrace();
