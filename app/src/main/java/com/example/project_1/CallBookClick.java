@@ -2,6 +2,7 @@ package com.example.project_1;
 
 import android.content.ContentResolver;
 import android.content.res.AssetManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -33,6 +35,9 @@ public class CallBookClick extends Fragment {
     TextView explainText;
     TextView numText;
     TextView ageText;
+    ImageView detailImage;
+
+    MainActivity mainActivity;
 
     String name;
     String num;
@@ -50,16 +55,25 @@ public class CallBookClick extends Fragment {
         InputStream inputStream = null;
         AssetManager assetManager = getResources().getAssets();
         String json = "";
+        mainActivity = (MainActivity) getActivity();
 
         titleText = (TextView) rootView.findViewById(R.id.title_text);
         explainText = (TextView) rootView.findViewById(R.id.explain_text);
         numText = (TextView) rootView.findViewById(R.id.num_text);
         ageText = (TextView) rootView.findViewById(R.id.age_text);
+        detailImage = (ImageView) rootView.findViewById(R.id.detail_image);
 
         titleText.setText(name);
         explainText.setText(explain);
         numText.setText(num);
         ageText.setText(age);
+
+        detailImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.moveBackToAddressPage();
+            }
+        });
 
         return rootView;
     }

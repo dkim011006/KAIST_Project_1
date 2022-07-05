@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment_Login fragmentLogin = new Fragment_Login();
+//        getSupportFragmentManager().popBackStackImmediate();
+//        transaction.add(fragmentLogin, "home_login");
         transaction.replace(R.id.frame, fragmentLogin);
         transaction.commit();
 
@@ -83,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment_Login fragmentFree = new Fragment_Login();
+//                getSupportFragmentManager().popBackStackImmediate();
                 transaction.replace(R.id.frame, fragmentFree);
+//                transaction.add(fragmentFree, "fragmentFree");
                 transaction.commit();
                 drawerLayout.closeDrawers();
             }
@@ -100,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment_Address fragmentAddress = new Fragment_Address();
+//                getSupportFragmentManager().popBackStackImmediate();
                 transaction.replace(R.id.frame, fragmentAddress);
+//                transaction.add(fragmentAddress, "fragmentAddress");
                 transaction.commit();
                 drawerLayout.closeDrawers();
             }
@@ -117,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Fragment_Gallery fragmentGallery = new Fragment_Gallery();
+//                getSupportFragmentManager().popBackStackImmediate();
                 transaction.replace(R.id.frame, fragmentGallery);
+//                transaction.add(fragmentGallery, "fragmentGallery");
                 transaction.commit();
                 drawerLayout.closeDrawers();
 
@@ -154,10 +163,31 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void change_to_Detail(String name, String num, String explain, String age){
+    public void moveToDetailPage(String name, String num, String explain, String age){
         CallBookClick callBookClick = new CallBookClick();
         callBookClick.jsonNum(name, num, explain, age);
+//        getSupportFragmentManager().popBackStackImmediate();
         getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
+//        getSupportFragmentManager().beginTransaction().add(callBookClick, "callBookClick").commit();
+//        getSupportFragmentManager().beginTransaction().remove(R.id.listFragment);
+    }
+
+    public void moveToAddPage(){
+        Fragment_Address_Add fragment_address_add = new Fragment_Address_Add();
+//        getSupportFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, fragment_address_add).commit();
+//        getSupportFragmentManager().beginTransaction().add(fragment_address_add, "fragment_address_add").commit();
+    }
+
+    public void moveBackToAddressPage(){
+        Fragment_Address fragment_address = new Fragment_Address();
+//        getSupportFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, fragment_address).commit();
+//        getSupportFragmentManager().beginTransaction().add(fragment_address, "fragment_address").commit();
+//        Fragment fragment = getFragmentManager().findFragmentById(R.id.listFragment);
+//        if(fragment instanceof MyFragment) {
+//            // todo
+//        }
     }
 
     public void updateUserInfo(Boolean isLogin, JSONObject jo, String username, String password, ArrayList addressList, ArrayList galleryList){
