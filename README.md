@@ -1,7 +1,5 @@
 # KAIST_Project_1
 카이스트 몰입캠프 공통과제 1
-# KAIST_Project_1
-카이스트 몰입캠프 공통과제 1
 # 멋진사나이
 
 > Week 1 3분반 김&박
