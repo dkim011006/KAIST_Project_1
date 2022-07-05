@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,6 +81,10 @@ public class Fragment_Address extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (name.getText().toString().equals("") || num.getText().toString().equals("")) {
+                    Toast.makeText(mainActivity, "Fill In Name & Number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //adapter.addItem(name.getText().toString(), R.drawable.avocado, num.getText().toString());
                 AddressData listViewItem = new AddressData();
                 listViewItem.setTitle(name.getText().toString());
