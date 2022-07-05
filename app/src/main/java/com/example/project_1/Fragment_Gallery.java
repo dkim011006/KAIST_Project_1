@@ -30,6 +30,9 @@ public class Fragment_Gallery extends Fragment {
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
 
+//    Button btn_gallery_getImages;
+//    Button btn_gallery_clearAll;
+
 
     public Fragment_Gallery(){
 
@@ -39,6 +42,7 @@ public class Fragment_Gallery extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_gallery, container, false);
+        MainActivity mainActivity = (MainActivity) getActivity();
 
         //  Gallery의 RecyclerView 구현 부분 시작
         recyclerView = (RecyclerView) v.findViewById(R.id.rv);
@@ -50,22 +54,42 @@ public class Fragment_Gallery extends Fragment {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge)); //decorate recyclerview's image layout
 
 
-        arrayList = new ArrayList<>();
+//        arrayList = new ArrayList<>();
+        System.out.println("Bringing Gallery");
+        System.out.println(mainActivity.getUserGalleryList());
+        arrayList = mainActivity.getUserGalleryList();
+        System.out.println("Brought Gallery");
+
 
         galleryAdapter = new GalleryAdapter(arrayList);
+        System.out.println("created gallery adapter");
         recyclerView.setAdapter(galleryAdapter);
+        System.out.println("adapter setted");
 
         Button btn_gallery_getImages = (Button) v.findViewById(R.id.btn_gallery_getImages);
         btn_gallery_getImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
+                System.out.println("Intent Created");
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                System.out.println("Type setted");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                System.out.println("Extra putted");
 //                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 2222);
+                System.out.println("startActivityForResulted");
             }
         });
+        System.out.println("click listener setted");
+
+//        btn_gallery_clearAll = v.findViewById(R.id.btn_gallery_clearAll);
+//        btn_gallery_clearAll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                arrayList.clear();
+//            }
+//        });
 
         //  Gallery의 RecyclerView 구현 부분 종료
 
@@ -85,7 +109,7 @@ public class Fragment_Gallery extends Fragment {
         }
         else{   // 이미지를 하나라도 선택한 경우
 
-            arrayList= new ArrayList<>();
+//            arrayList= new ArrayList<>();
 
             if(data.getClipData() == null){     // 이미지를 하나만 선택한 경우
                 Log.e("single choice: ", String.valueOf(data.getData()));

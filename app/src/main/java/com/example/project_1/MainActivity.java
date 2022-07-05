@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -23,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn1, btn2, btn3;
 
+    Boolean isLogin = false;
+    JSONObject jo = null;
     String username = "";
+    String password = "";
     ArrayList<AddressData> addressList = null;
     ArrayList<GalleryData> galleryList = null;
 
@@ -146,19 +151,38 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
     }
 
-    public void updateUserInfo(String username, ArrayList addressList, ArrayList galleryList){
+    public void updateUserInfo(Boolean isLogin, JSONObject jo, String username, String password, ArrayList addressList, ArrayList galleryList){
+        this.isLogin = isLogin;
+        this.jo = jo;
         this.username = username;
+        this.password = password;
         this.addressList = addressList;
         this.galleryList = galleryList;
-        System.out.println("The User Info are as below \n:\nusername = " + this.username);
+        System.out.println("The User Info are as below \n:\nisLogin = " + this.isLogin);
+        System.out.println("jo = ");
+        System.out.println(jo);
+        System.out.println("username = ");
+        System.out.println(username);
         System.out.println("addressList = ");
         System.out.println(addressList);
         System.out.println("galleryList = ");
         System.out.println(galleryList);
     }
 
+    public Boolean getIslogin(){
+        return this.isLogin;
+    }
+
+    public JSONObject getJo(){
+        return this.jo;
+    }
+
     public String getUsername(){
         return this.username;
+    }
+
+    public String getPassword(){
+        return this.password;
     }
 
     public ArrayList getUserAddressList(){

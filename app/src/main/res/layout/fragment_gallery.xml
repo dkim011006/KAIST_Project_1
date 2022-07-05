@@ -34,7 +34,13 @@
                 android:id="@+id/btn_gallery_getImages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="GET IMAGE" />
+                android:text="Add Image" />
+            <Button
+                android:id="@+id/btn_gallery_clearAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear All"/>
+
         </LinearLayout>
 
 

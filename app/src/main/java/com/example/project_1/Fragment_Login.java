@@ -1,5 +1,7 @@
 package com.example.project_1;
 
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,7 +35,6 @@ public class Fragment_Login extends Fragment {
     TextView label;
     Boolean userListExists;
     JSONObject jo = null;
-    String username;
 
     public Fragment_Login(){
 
@@ -42,29 +45,7 @@ public class Fragment_Login extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         MainActivity mainActivity = (MainActivity) getActivity();
-        //check if file exists
-        System.out.println("GOES IN,,,,,,,");
-        try {
-            File path = getActivity().getApplicationContext().getFilesDir();
-            File file1 = new File(path + "/userlist.json");
-            if (file1.exists()) {
-                if (file1.isDirectory()) {
-                    System.out.println("file1: dir exits");
-                } else {
-                    System.out.println("file1: file exits");
-                    userListExists = true;
-                    jo = getJsonObjectFromFile("userlist.json");
-                }
-            } else {
-                System.out.println("file1: does not exits");
-                userListExists = false;
-                jo = createNewJsonObject();
-            }
-        } catch (Exception e) {
-            System.out.println("SERIOUS ERROR OCCURRED!!!!");
-        }finally {
-            System.out.println("FINALLLYU!!!!!");
-        }
+
 
         btnsignin = view.findViewById(R.id.btnsignin);
         btnlogin = view.findViewById(R.id.btnlogin);
@@ -74,6 +55,43 @@ public class Fragment_Login extends Fragment {
         inputpw = view.findViewById(R.id.inputpw);
         label = view.findViewById(R.id.label);
 
+        //check if already login
+        if(mainActivity.getIslogin()){
+            jo = mainActivity.getJo();
+            inputid.setVisibility(View.GONE);
+            inputpw.setVisibility(View.GONE);
+            btnsignin.setVisibility(View.GONE);
+            btnlogin.setVisibility(View.GONE);
+            label.setText("hello, " + mainActivity.getUsername() + "!");
+            btnsaveinfo.setVisibility(View.VISIBLE);
+            btnlogout.setVisibility(View.VISIBLE);
+        }else{
+            //check if file exists
+            System.out.println("GOES IN,,,,,,,");
+            try {
+                File path = getActivity().getApplicationContext().getFilesDir();
+                File file1 = new File(path + "/userlist.json");
+                if (file1.exists()) {
+                    if (file1.isDirectory()) {
+                        System.out.println("file1: dir exits");
+                    } else {
+                        System.out.println("file1: file exits");
+                        userListExists = true;
+                        jo = getJsonObjectFromFile("userlist.json");
+                    }
+                } else {
+                    System.out.println("file1: does not exits");
+                    userListExists = false;
+                    jo = createNewJsonObject();
+                }
+            } catch (Exception e) {
+                System.out.println("SERIOUS ERROR OCCURRED!!!!");
+            }finally {
+                System.out.println("FINALLLYU!!!!!");
+            }
+
+
+        }
         btnsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,9 +109,9 @@ public class Fragment_Login extends Fragment {
                             //Default Address Hard Coding
                             JSONObject joUserDefaultAddress = new JSONObject();
                             joUserDefaultAddress.put("name", "Bruno Fernandes");
-                            joUserDefaultAddress.put("age", "27");
+                            //joUserDefaultAddress.put("age", "27");
                             joUserDefaultAddress.put("number", "01048674395");
-                            joUserDefaultAddress.put("explain", "World's Best Player");
+                            //joUserDefaultAddress.put("explain", "World's Best Player");
 
                             JSONArray jaUserAddress = new JSONArray();
                             jaUserAddress.put(joUserDefaultAddress);
@@ -126,12 +144,16 @@ public class Fragment_Login extends Fragment {
                 }
             }
         });
+
+
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateUserId(inputid.getText().toString())){
                     if(validateUserPw(inputid.getText().toString(), inputpw.getText().toString())){
                         String id = inputid.getText().toString();
+                        String pw = inputpw.getText().toString();
                         //user login...
 //                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
 //                        intent.putExtra("username", inputid.getText().toString());
@@ -149,9 +171,9 @@ public class Fragment_Login extends Fragment {
                             JSONArray userGalleryJsonList = jo.getJSONObject(id).getJSONArray("gallery");
                             ArrayList<AddressData> userAddressArrayList = new ArrayList<>();
                             ArrayList<GalleryData> userGalleryArrayList = new ArrayList<>();
-                            userAddressArrayList = convertJsonArrayToArrayList(userAddressArrayList, userAddressJsonList);
-                            userGalleryArrayList = convertJsonArrayToArrayList(userGalleryArrayList, userGalleryJsonList);
-                            mainActivity.updateUserInfo(id, userAddressArrayList, userGalleryArrayList);
+                            userAddressArrayList = convertJsonArrayToArrayList_AddressData(userAddressArrayList, userAddressJsonList);
+                            userGalleryArrayList = convertJsonArrayToArrayList_GalleryData(userGalleryArrayList, userGalleryJsonList);
+                            mainActivity.updateUserInfo(true, jo, id, pw, userAddressArrayList, userGalleryArrayList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -171,6 +193,36 @@ public class Fragment_Login extends Fragment {
             @Override
             public void onClick(View view) {
                 //MainActivity(GET USERNAME, ADDRESSES, GALLERY and SAVE THEM)
+                String username = mainActivity.getUsername();
+                String password = mainActivity.getPassword();
+                System.out.println("Password by getPassword() = " + password);
+                ArrayList<AddressData> userAddressArrayList_forsave = mainActivity.getUserAddressList();
+                ArrayList<GalleryData> userGalleryArrayList_forsave = mainActivity.getUserGalleryList();
+                JSONArray userAddressJsonList_forsave = new JSONArray();
+                JSONArray userGalleryJsonList_forsave = new JSONArray();
+                userAddressJsonList_forsave = convertArrayListToJsonArray_AddressData(userAddressArrayList_forsave, userAddressJsonList_forsave);
+                userGalleryJsonList_forsave = convertArrayListToJsonArray_GalleryData(userGalleryArrayList_forsave, userGalleryJsonList_forsave);
+                JSONObject joForUserInfoSave = new JSONObject();
+                try {
+                    joForUserInfoSave.put("password", password);
+                    joForUserInfoSave.put("address", userAddressJsonList_forsave);
+                    joForUserInfoSave.put("gallery", userGalleryJsonList_forsave);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(joForUserInfoSave);
+                try {
+                    jo.put(username, joForUserInfoSave);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    System.out.println("The Final Jo... is!");
+                    System.out.println(jo);
+                    writeJsonFile("userlist.json", jo);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         btnlogout.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +238,7 @@ public class Fragment_Login extends Fragment {
                 btnsaveinfo.setVisibility(View.GONE);
                 btnlogout.setVisibility(View.GONE);
                 //MainActivity(Reset USERNAME, ADDRESSES, GALLERY)
-                mainActivity.updateUserInfo(null, null, null);
+                mainActivity.updateUserInfo(false, jo,null, null, null, null);
             }
         });
 
@@ -246,7 +298,7 @@ public class Fragment_Login extends Fragment {
         return jo;
     }
 
-    private ArrayList convertJsonArrayToArrayList(ArrayList arrayList, JSONArray jsonArray){
+    private ArrayList convertJsonArrayToArrayList_AddressData(ArrayList arrayList, JSONArray jsonArray){
         if (jsonArray != null) {
 
             //Iterating JSON array
@@ -254,7 +306,9 @@ public class Fragment_Login extends Fragment {
 
                 //Adding each element of JSON array into ArrayList
                 try {
-                    arrayList.add(jsonArray.get(i));
+                    JSONObject userData = jsonArray.getJSONObject(i);
+                    AddressData addressData = new AddressData(R.drawable.avocado, userData.getString("number"), userData.getString("name"));
+                    arrayList.add(addressData);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -268,5 +322,136 @@ public class Fragment_Login extends Fragment {
             System.out.println(arrayList.get(i));
         }
         return arrayList;
+    }
+
+    private ArrayList convertJsonArrayToArrayList_GalleryData(ArrayList<GalleryData> arrayList, JSONArray jsonArray){
+        if (jsonArray != null) {
+
+            //Iterating JSON array
+            for (int i=0;i<jsonArray.length();i++){
+
+                //Adding each element of JSON array into ArrayList
+                try {
+                    System.out.println("JSON URI DATA = " + jsonArray.getString(i));
+                    Uri imageUri = Uri.parse(jsonArray.getString(i));  // 선택한 이미지들의 uri를 가져온다.
+                    System.out.println("PARSED URI = " + imageUri);
+                    GalleryData galleryData = new GalleryData(imageUri);
+                    arrayList.add(galleryData);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //Iterating ArrayList to print each element
+
+        System.out.println("Each element of ArrayList");
+        for(int i=0; i<arrayList.size(); i++) {
+            //Printing each element of ArrayList
+            GalleryData gData = arrayList.get(i);
+            System.out.println(gData.getIv_photo());
+        }
+        return arrayList;
+    }
+
+    private JSONArray convertArrayListToJsonArray_AddressData(ArrayList<AddressData> arrayList, JSONArray jsonArray) {
+        if (arrayList != null) {
+
+            //Iterating JSON array
+            for (int i=0;i<arrayList.size();i++){
+
+                //Adding each element of JSON array into ArrayList
+                try {
+                    AddressData addressData = arrayList.get(i);
+                    String name = addressData.getTitle();
+                    String number = addressData.getContent();
+                    JSONObject jo_forsaveAddress = new JSONObject();
+                    jo_forsaveAddress.put("name", name);
+                    jo_forsaveAddress.put("number", number);
+                    jsonArray.put(jo_forsaveAddress);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //Iterating ArrayList to print each element
+
+        System.out.println("Each element of ArrayList");
+        for(int i=0; i<arrayList.size(); i++) {
+            //Printing each element of ArrayList
+            System.out.println(arrayList.get(i));
+        }
+        return jsonArray;
+    }
+
+    private JSONArray convertArrayListToJsonArray_GalleryData(ArrayList<GalleryData> arrayList, JSONArray jsonArray) {
+        if (arrayList != null) {
+
+            //Iterating JSON array
+            for (int i=0;i<arrayList.size();i++){
+
+                //Adding each element of JSON array into ArrayList
+                GalleryData galleryData = arrayList.get(i);
+                String uriToString = galleryData.getIv_photo().toString();
+                jsonArray.put(uriToString);
+
+
+            }
+        }
+        //Iterating ArrayList to print each element
+
+        System.out.println("Each element of ArrayList");
+        for(int i=0; i<arrayList.size(); i++) {
+            //Printing each element of ArrayList
+            System.out.println(arrayList.get(i));
+        }
+        return jsonArray;
+    }
+
+    public void writeJsonFile(String fileName, JSONObject jsonObject) throws JSONException {
+
+//        JSONArray ja = new JSONArray();
+//
+//        //Inserting key-value pairs into the json object
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("hey", true);
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Park", "1");
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Kim", "12");
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Cheong", "123");
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Paek", "1234");
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Byun", "12345");
+//        ja.put(jsonObject);
+//
+//        jsonObject = new JSONObject();
+//        jsonObject.put("Kang", "123456");
+//        ja.put(jsonObject);
+
+        File path = getActivity().getApplicationContext().getFilesDir();
+        System.out.println("The file path is :");
+        System.out.println(path);
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+            writer.write(jsonObject.toString().getBytes());
+            Toast.makeText(getActivity().getApplicationContext(), "Wrote to file: " + fileName, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("JSON file created: "+jsonObject);
     }
 }

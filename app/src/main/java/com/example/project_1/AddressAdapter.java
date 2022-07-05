@@ -79,11 +79,7 @@ public class AddressAdapter extends BaseAdapter {
     }
 
     public void addItem(String title, int icon, String content){
-        AddressData item = new AddressData();
-
-        item.setTitle(title);
-        item.setIcon(icon);
-        item.setContent(content);
+        AddressData item = new AddressData(icon, content, title);
 
         listViewItemList.add(item);
     }

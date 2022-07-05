@@ -5,6 +5,12 @@ public class AddressData {
     private String contentStr;
     private String titleStr;
 
+    public AddressData(int iconDrawable, String contentStr, String titleStr) {
+        this.iconDrawable = iconDrawable;
+        this.contentStr = contentStr;
+        this.titleStr = titleStr;
+    }
+
     public void setTitle(String title){
         titleStr = title;
     }
