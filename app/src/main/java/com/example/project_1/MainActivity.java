@@ -145,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void change_to_Detail(int i){
+    public void change_to_Detail(String name, String num, String explain, String age){
         CallBookClick callBookClick = new CallBookClick();
-        callBookClick.jsonNum(i);
+        callBookClick.jsonNum(name, num, explain, age);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFragment, callBookClick).commit();
     }
 

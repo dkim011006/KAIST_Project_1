@@ -4,6 +4,8 @@ public class AddressData {
     private int iconDrawable;
     private String contentStr;
     private String titleStr;
+    private String explain;
+    private String age;
 
     public AddressData(int iconDrawable, String contentStr, String titleStr) {
         this.iconDrawable = iconDrawable;
@@ -29,5 +31,21 @@ public class AddressData {
     }
     public String getTitle(){
         return this.titleStr;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 }
