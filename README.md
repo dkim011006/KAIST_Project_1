@@ -6,7 +6,7 @@
 > 
 - 로그인을 통한 User별 전화번호부와 사진첩을 관리해주는 Android 기반 어플리케이션입니다.
 
-# TAB 1 - 연락처!
+# TAB 1 - 연락처
 
 ![스크린샷 2022-07-05 오후 8 40 45](https://user-images.githubusercontent.com/65712771/177319509-0d02632a-aa33-4895-987f-8649daca7f10.png)
 
