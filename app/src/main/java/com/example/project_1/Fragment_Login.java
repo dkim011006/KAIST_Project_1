@@ -3,6 +3,7 @@ package com.example.project_1;
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,7 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Fragment_Login extends Fragment {
-    Button btnsignin, btnlogin, btnsaveinfo, btnlogout;
+    TextView btnsignin, btnlogin, btnsaveinfo, btnlogout;
     EditText inputid, inputpw;
     TextView label;
     Boolean userListExists;
@@ -62,7 +64,9 @@ public class Fragment_Login extends Fragment {
             inputpw.setVisibility(View.GONE);
             btnsignin.setVisibility(View.GONE);
             btnlogin.setVisibility(View.GONE);
-            label.setText("hello, " + mainActivity.getUsername() + "!");
+            label.setTextColor(Color.parseColor("#FF9575CD"));
+            label.setTextSize(2, 50);
+            label.setText("Hello, " + mainActivity.getUsername() + "!");
             btnsaveinfo.setVisibility(View.VISIBLE);
             btnlogout.setVisibility(View.VISIBLE);
         }else{
@@ -98,8 +102,12 @@ public class Fragment_Login extends Fragment {
                 //Sign In
                 if(!validateUserId(inputid.getText().toString())){
                     if(inputid.getText().toString().equals("")){
+                        label.setTextColor(Color.RED);
+                        label.setTextSize(2, 23);
                         label.setText("Enter Username");
                     }else if(inputpw.getText().toString().equals("")) {
+                        label.setTextColor(Color.RED);
+                        label.setTextSize(2, 23);
                         label.setText("Enter Password");
                     }else{
                         //user register...
@@ -128,16 +136,22 @@ public class Fragment_Login extends Fragment {
 
                             System.out.println(jo);
 
+                            label.setTextColor(Color.RED);
+                            label.setTextSize(2, 23);
                             label.setText("Signed In!");
                             inputid.setText("");
                             inputpw.setText("");
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            label.setTextColor(Color.RED);
+                            label.setTextSize(2, 23);
                             label.setText(e.getMessage());
                         }
                     }
 
                 }else{
+                    label.setTextColor(Color.RED);
+                    label.setTextSize(2, 23);
                     label.setText("User Already Exists!");
                     inputid.setText("");
                     inputpw.setText("");
@@ -162,7 +176,9 @@ public class Fragment_Login extends Fragment {
                         inputpw.setVisibility(View.GONE);
                         btnsignin.setVisibility(View.GONE);
                         btnlogin.setVisibility(View.GONE);
-                        label.setText("hello, " + id + "!");
+                        label.setTextColor(Color.parseColor("#FF9575CD"));
+                        label.setTextSize(2, 50);
+                        label.setText("Hello, " + id + "!");
                         btnsaveinfo.setVisibility(View.VISIBLE);
                         btnlogout.setVisibility(View.VISIBLE);
                         //MainActivity(Set USERNAME, ADDRESSES, GALLERY)
